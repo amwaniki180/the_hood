@@ -22,3 +22,22 @@ class Project(models.Model):
    date = models.DateTimeField(auto_now_add = True,null = True)
    location = models.CharField(max_length = 30)
    occupants = models.IntegerField(default = 0)
+
+      def save_project(self):
+       """
+       This is the function that we will use to save the instance of this class
+       """
+       self.save()
+
+   def delete_project(self):
+       """
+       This is the function that we will use to delete the instance of this class
+       """
+       self.delete()
+    
+   def get_absolute_url(self): 
+        return reverse('home') 
+
+
+   def __str__(self):
+        return self.name
