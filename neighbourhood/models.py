@@ -41,3 +41,34 @@ class Project(models.Model):
 
    def __str__(self):
         return self.name
+class Profile(models.Model):
+    profile_image = models.ImageField(blank=True,upload_to='profiles/')
+    bio = models.TextField(blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    neighbour_hood = models.ForeignKey(Project,on_delete = models.CASCADE,null=True)
+
+    def save_profile(self):
+        self.save()
+
+    @classmethod
+    def get_by_id(cls, id):
+        profile = Profile.objects.get(user = id)
+        return profile
+
+    def filter_by_id(cls, id):
+        profile = Profile.objects.filter(user = id).first()
+        return profile
+
+    def get_absolute_url(self): 
+        return reverse('user_profile')
+    
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+
+
