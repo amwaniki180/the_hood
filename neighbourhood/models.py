@@ -104,3 +104,31 @@ class Business(models.Model):
         return business
     def delete_business(self):
        Business.objects.get(id = self.id).delete()
+
+class Post(models.Model):
+    body = models.TextField()
+    title = models.TextField(max_length=15)
+    poster= models.ForeignKey(User, on_delete=models.CASCADE, related_name='post')
+    post_neighbourhood = models.ForeignKey(Project,on_delete = models.CASCADE)
+    date = models.DateTimeField(auto_now_add = True,null = True)
+    
+    def save_post(self):
+        self.save()
+
+      
+    @classmethod
+    def get_by_id(cls, id):
+        post = Post.objects.get(id = id)
+        return post
+
+    def delete_post(self):
+
+        self.delete()
+    
+    def __str__(self):
+        return self.title 
+    
+    @classmethod
+    def get_post(cls, id):
+        posts = Post.objects.filter(post_neighbourhood__pk =id)
+        return posts
