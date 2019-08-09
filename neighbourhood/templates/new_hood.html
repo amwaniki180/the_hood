@@ -1,0 +1,60 @@
+% load bootstrap3 %} {% load crispy_forms_tags %} {% load staticfiles %} {% block content %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<style>
+    .help-block,
+    label[for="title"] {
+        position: absolute;
+        display: none
+    }
+    
+    .container {
+        width: 620px;
+        padding: 10px;
+        border: 5px solid black;
+        margin: auto;
+        margin-top: 100px;
+        border-radius: 5px;
+        background-color: coral;
+        padding: 20px;
+    }
+    
+    body {
+        background-image: url("{% static 'images/totnto.jpg' %}");
+        background-size: 200%;
+        background-repeat: no-repeat;
+    }
+    
+    .help-block,
+    label[for="title"] {
+        position: absolute;
+        display: none
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <!-- main content -->
+        <h2>Login to your Account</h2>
+        <p>Enter your details to login.</p>
+        {% if form.errors %}
+        <p> Password or Username is incorrect </p>
+        {% endif %}
+
+        <form action="{%url 'new_business'%}" method="post">
+            {% csrf_token %} {{ form|crispy }}
+
+            <div class="form-group">
+                <input type="submit" class="w3-button w3-black" value="ADD" style="margin-top:15px;">
+            </div>
+
+            <input type="hidden" name="next" value="{{next}}">
+
+        </form>
+        <p class="account">By clicking login, you agree to our <a href="#">Terms & Conditions!</a></p>
+        <p class="account1">Dont have an account? <a href="/accounts/register">Register here</a></p>
+    </div>
+    </div>
+    {% endblock %}
