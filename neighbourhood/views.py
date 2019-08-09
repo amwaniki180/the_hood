@@ -29,3 +29,10 @@ def new_project(request):
     else:
         form = ProjectForm()
     return render(request,'new_project.html',{'form':form})
+
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    user = request.user
+    #profile = Profile.objects.get(user_id=current_user.id)
+    
+    return render(request, 'profile.html',{"user":user, "current_user":request.user})
