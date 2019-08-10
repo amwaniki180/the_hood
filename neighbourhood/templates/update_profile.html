@@ -1,0 +1,61 @@
+{% load bootstrap3 %} {% load crispy_forms_tags %} {% load staticfiles %} {% block content %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<style>
+    .help-block,
+    label[for="title"] {
+        position: absolute;
+        display: none
+    }
+    
+    .container {
+        width: 620px;
+        padding: 10px;
+        border: 5px solid gray;
+        margin: auto;
+        margin-top: 100px;
+        border-radius: 5px;
+        background-color: rosybrown;
+        padding: 20px;
+    }
+    
+    body {
+        background-image: url("{% static 'images/london.jpg' %}");
+        background-size: 300%;
+        background-repeat: no-repeat;
+    }
+    
+    .help-block,
+    label[for="title"] {
+        position: absolute;
+        display: none
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <!-- main content -->
+        <h2>Update Your Profile </h2>
+        <p></p>
+        {% if form.errors %}
+        <p> Password or Username is incorrect </p>
+        {% endif %}
+
+        <form action="{%url 'update'%}" method="post">
+            {% csrf_token %} {{ form|crispy }}
+
+            <div class="form-group">
+                <input type="submit" class="w3-button w3-black" value="Update" style="margin-top:15px;">
+            </div>
+
+            <input type="hidden" name="next" value="{{next}}">
+            <br>
+            <a href="{%url 'profile'%}"> Back to Profile </a>
+
+        </form>
+
+    </div>
+    </div>
+    {% endblock %}
