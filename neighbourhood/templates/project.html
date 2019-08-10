@@ -1,0 +1,228 @@
+{% block content%}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Neighbourhood Watch</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/owl.carousel.css" rel="stylesheet">
+    <link href="/static/css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
+</head>
+
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                 <span class="sr-only">Toggle navigation</span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 </button>
+                <a class="navbar-brand page-scroll" href="/"><img src="/static/images/download.jpeg" alt=" logo" style="height:40px"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/">Home</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">Businesses</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#post"> News </a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Emergency Contact</a>
+                    </li>
+                    {% if user.is_authenticated %}
+
+                    <li>
+                        <a class="page-scroll" href="{%url 'new_business'%}">Add Business</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{% url 'profile' %}">Profile</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/logout">Logout</a>
+                    </li>
+                    <li>
+                        <a href="{%url 'new_post'%}"><i class="fas fa-book" style="font-size:16px;"></i></a>
+                    </li>
+
+                    {%else%}
+                    <li>
+                        <a class="page-scroll" href="/accounts/login">Login</a>
+                    </li>
+                    {%endif%}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div class="container-fluid">
+            <div class="w3-display-container">
+                <img src="{{project.image_url.url}}" style="width:100%">
+
+                <div class="main_home text-center">
+
+                    <div class="home_text">
+
+                        <div class="separator"></div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!--End off row-->
+        </div>
+        <!--End off container -->
+        </section>
+    </header>
+    <section id="about" class="light-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <h2>About "{{project.name}}"</h2>
+                        <h4> <i> {{project.description}}</i></h4>
+                        <h4> Occupants : {{project.occupants}}</h4>
+                        <h5> Location : {{project.location | upper}}</h5>
+                        <h5> Created : {{project.date|date}}</h5>
+                        <h5> Adminstration : {{project.admin}}</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 text-center">
+                <div class="section-title" style="margin-top:25px;">
+                    <h2>Businesses</h2>
+                </div>
+            </div>
+            <div class="row">
+                {%if business%} {%for bus in business%}
+                <!-- about module -->
+                <div class="col-md-3 text-center" style="margin-top:25px;">
+
+                    <div class="mz-module">
+                        <div class="mz-module-about">
+                            <i class="fa fa-cube color4 ot-circle" style="font-size:65px;"></i>
+                            <!-- <i class="far fa-building color4 ot-circle"></i> -->
+                            <a href="">
+                                <h4>{{bus.name}}</h4>
+                            </a>
+                            <p> Owner:<b>{{bus.owner|upper}}</b></p>
+                            <p> Neighbourhood:<b>{{bus.neighbourhood}}</b></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %} {%else%}
+                <h2 class="text-center" style="padding-bottom:25px;"> <b>No Businesses in "{{project.name}}" yet </b></h2>
+                {%endif%}
+                <section id="post" class="light-bg col-md-12">
+                    <h2 class="text-center" style="padding-bottom:25px;"> <b> News </b></h2>
+                    <div class="container">
+                        <div class="row">
+                            <div class="row">
+                                {%if posts%} {%for post in posts%}
+
+                                <!-- about module -->
+                                <div class="col-md-3 text-center">
+                                    </a>
+                                    <div class="mz-module">
+                                        <div class="mz-module-about">
+
+                                            <!-- <i class="far fa-building color4 ot-circle" style="font-size:35px;color:black;"></i> -->
+                                            <a href="{%url 'project' project.id%}">
+                                                <h4>{{post.title}}</h4>
+                                            </a>
+                                            <p> {{post.body|truncatechars:150 | safe}}</p>
+                                            <a href="{%url 'post' post.id%}" class="card-link">Read More --></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {%endfor%} {%else%}
+                                <h2 class="text-center" style="padding-bottom:25px;"> <b>No News for "{{project.name}}" yet </b></h2>
+                                {%endif%}
+                                <!-- <div class="col-md-4 text-center">
+                                <div class="mz-module">
+                                    <div class="mz-module-about">
+                                    <i class="fas fa-school color4 ot-circle"  style="font-size:50px; color:yellow;"></i>
+                                    <h4> School </h4>
+                                </div>
+                            </div>
+                        </div> -->
+                            </div>
+                        </div>
+                </section>
+                <section id="contact" class="light-bg col-md-12">
+                    <h2 class="text-center" style="padding-bottom:25px;"> <b> Emergency Contact</b></h2>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                <div class="mz-module">
+                                    <div class="mz-module-about">
+                                        <i class="fa fa-ambulance color4 ot-circle" style="font-size:50px; color:red;"></i>
+                                        <h4><b> {{project.name}} General Hospital</b></h4>
+                                        <h3> Email: {{project.name |lower}}@gmail.com </h3>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <div class="mz-module">
+                                    <div class="mz-module-about">
+                                        <i class="fas fa-shield-alt color4 ot-circle" style="font-size:50px; color:blue;"></i>
+                                        <h4> <b>{{project.name}} Police Station</b></h4>
+                                        <h3>Email: {{project.name}}@yahoo.com </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4 text-center">
+                            <div class="mz-module">
+                                <div class="mz-module-about">
+                                <i class="fas fa-school color4 ot-circle"  style="font-size:50px; color:yellow;"></i>
+                                <h4> School </h4>
+                            </div>
+                        </div>
+                    </div> -->
+                        </div>
+                    </div>
+                </section>
+
+
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+                <script src="/static/js/bootstrap.min.js"></script>
+                <script src="/static/js/owl.carousel.min.js"></script>
+                <script src="/static/js/cbpAnimatedHeader.js"></script>
+                <script src="/static/js/jquery.appear.js"></script>
+                <script src="/static/js/SmoothScroll.min.js"></script>
+                <script src="/static/js/theme-scripts.js"></script>
+</body>
+<script>
+    function myFunction(x) {
+        x.classList.toggle("	fas fa-door-closed");
+    }
+</script>
+{%endblock%}
