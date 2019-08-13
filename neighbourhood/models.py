@@ -1,5 +1,5 @@
-from django.db import models
 from __future__ import unicode_literals
+from django.db import models
 from django.contrib.auth.models import User
 import datetime as dt
 from tinymce.models import HTMLField
@@ -23,7 +23,7 @@ class Project(models.Model):
    location = models.CharField(max_length = 30)
    occupants = models.IntegerField(default = 0)
 
-      def save_project(self):
+   def save_project(self):
        """
        This is the function that we will use to save the instance of this class
        """
