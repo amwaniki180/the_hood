@@ -9,8 +9,7 @@ from django.http import JsonResponse
 
 def index(request):
     current_user = request.user
-    
-    projects = Project.objects.order_by('-date')
+    projects = Project.objects.all().order_by('-date')
     business = Business.objects.all()
     profile = Profile.objects.order_by('-last_update')
 
