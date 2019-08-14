@@ -24,7 +24,7 @@ def new_project(request):
             project = form.save(commit=False)
             project.admin = current_user
             project.save()
-        return redirect('home')
+        return redirect('index')
     else:
         form = ProjectForm()
     return render(request,'new_project.html',{'form':form})
